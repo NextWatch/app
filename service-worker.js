@@ -1,28 +1,28 @@
 // Service Worker for NextWatch App
 const CACHE_NAME = 'nextwatch-cache-v1';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/css/reset.css',
-  '/css/variables.css',
-  '/css/main.css',
-  '/css/components.css',
-  '/css/animations.css',
-  '/js/config.js',
-  '/js/utils.js',
-  '/js/storage.js',
-  '/js/ui.js',
-  '/js/api.js',
-  '/js/search.js',
-  '/js/watchlist.js',
-  '/js/recommendations.js',
-  '/js/detail.js',
-  '/js/settings.js',
-  '/js/app.js',
-  '/assets/icon-192.png',
-  '/assets/icon-512.png',
-  '/assets/no-poster.png'
+  '/app/',
+  '/app/index.html',
+  '/app/manifest.json',
+  '/app/css/reset.css',
+  '/app/css/variables.css',
+  '/app/css/main.css',
+  '/app/css/components.css',
+  '/app/css/animations.css',
+  '/app/js/config.js',
+  '/app/js/utils.js',
+  '/app/js/storage.js',
+  '/app/js/ui.js',
+  '/app/js/api.js',
+  '/app/js/search.js',
+  '/app/js/watchlist.js',
+  '/app/js/recommendations.js',
+  '/app/js/detail.js',
+  '/app/js/settings.js',
+  '/app/js/app.js',
+  '/app/assets/icon-192.png',
+  '/app/assets/icon-512.png',
+  '/app/assets/no-poster.png'
 ];
 
 // Install event - cache assets
@@ -91,7 +91,7 @@ self.addEventListener('fetch', event => {
       .catch(() => {
         // Fallback for HTML pages
         if (event.request.headers.get('accept').includes('text/html')) {
-          return caches.match('/index.html');
+          return caches.match('/app/index.html');
         }
       })
   );
