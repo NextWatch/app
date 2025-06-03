@@ -1,0 +1,192 @@
+/* Animations */
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Spring animations for iOS feel */
+.spring-transition {
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+/* Tab switching animation */
+.tab-switch-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.tab-switch-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0), 
+              transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.tab-switch-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.tab-switch-exit-active {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0), 
+              transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+/* Button press animation */
+.button-press {
+  transition: transform 0.1s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.button-press:active {
+  transform: scale(0.97);
+}
+
+/* Card hover/press animation */
+.card {
+  transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1.0),
+              box-shadow 0.2s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.card:active {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Modal animations */
+.modal-enter {
+  visibility: visible;
+}
+
+.modal-enter .modal-backdrop {
+  opacity: 0;
+}
+
+.modal-enter .modal-container {
+  transform: translateY(100%);
+}
+
+.modal-enter-active .modal-backdrop {
+  opacity: 1;
+  transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.modal-enter-active .modal-container {
+  transform: translateY(0);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-exit .modal-backdrop {
+  opacity: 1;
+}
+
+.modal-exit .modal-container {
+  transform: translateY(0);
+}
+
+.modal-exit-active .modal-backdrop {
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.modal-exit-active .modal-container {
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+/* Toast animation */
+.toast-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.toast-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0),
+              transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.toast-exit {
+  opacity: 1;
+}
+
+.toast-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+/* Haptic feedback simulation */
+@keyframes haptic {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-1px); }
+  50% { transform: translateX(1px); }
+  75% { transform: translateX(-1px); }
+  100% { transform: translateX(0); }
+}
+
+.haptic-feedback {
+  animation: haptic 0.15s ease-in-out;
+}
+
+/* Shimmer loading effect */
+.shimmer {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.1) 40%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+/* iOS-style pull to refresh */
+.pull-to-refresh {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-60px);
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.pull-to-refresh.visible {
+  transform: translateY(0);
+}
+
+.pull-indicator {
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NextWatch - Watch smarter. Track better.</title>
+    <meta name="description" content="Personal TV/movie tracker app with AI-enhanced experience">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- iOS icon -->
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <div id="app" class="app">
+        <!-- Main Content Area -->
+        <main id="main-content" class="main-content">
+            <!-- Home/Search Screen -->
+            <section id="home-screen" class="screen active">
+                <div class="screen-content">
+                    <div class="search-container">
+                        <div class="search-bar">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="search-input" placeholder="Search movies and TV shows" aria-label="Search movies and TV shows">
+                            <button class="clear-button" id="search-clear" aria-label="Clear search">✕</button>
+                        </div>
+                    </div>
+                    <div id="home-container" class="home-container">
+                        <!-- Home content will be populated here -->
+                    </div>
+                    <div id="search-results" class="search-results">
+                        <!-- Search results will be populated here -->
+                        <div class="empty-state">
+                            <p>Search for your favorite movies and TV shows</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Watchlist Screen -->
+            <section id="watchlist-screen" class="screen">
+                <div class="screen-content">
+                    <h1 class="screen-title">Watchlist</h1>
+                    <div class="segmented-control" id="watchlist-filter">
+                        <button class="segment active" data-filter="all">All</button>
+                        <button class="segment" data-filter="rated">★4+</button>
+                        <button class="segment" data-filter="unrated">Unrated</button>
+                        <button class="segment" data-filter="recent">Recent</button>
+                    </div>
+                    <div id="watchlist-container" class="watchlist-container">
+                        <!-- Watchlist items will be populated here -->
+                        <div class="empty-state">
+                            <p>Your watchlist is empty</p>
+                            <p>Add shows from the search tab</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recommendations Screen -->
+            <section id="recommendations-screen" class="screen">
+                <div class="screen-content">
+                    <h1 class="screen-title">Recommendations</h1>
+                    <div id="recommendations-container" class="recommendations-container">
+                        <!-- Recommendations will be populated here -->
+                        <div class="empty-state">
+                            <p>Add and rate shows to get recommendations</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Screen -->
+            <section id="settings-screen" class="screen">
+                <div class="screen-content">
+                    <h1 class="screen-title">Settings</h1>
+                    <div class="settings-group">
+                        <h2 class="settings-group-title">API Settings</h2>
+                        <div class="settings-item">
+                            <label for="gemini-api-key">Gemini API Key</label>
+                            <input type="password" id="gemini-api-key" placeholder="Enter your Gemini API key">
+                            <button id="save-api-key" class="button button-primary">Save</button>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <h2 class="settings-group-title">Appearance</h2>
+                        <div class="settings-item">
+                            <span>Dark Mode</span>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="dark-mode-toggle" class="toggle-input">
+                                <label for="dark-mode-toggle" class="toggle-label"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <h2 class="settings-group-title">Data Management</h2>
+                        <div class="settings-buttons">
+                            <button id="clear-watchlist" class="button button-danger">Clear Watchlist</button>
+                            <button id="reset-chat-history" class="button button-danger">Reset Chat History</button>
+                            <button id="clear-all-data" class="button button-danger">Clear All Data</button>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <h2 class="settings-group-title">About</h2>
+                        <div class="about-content">
+                            <h3>NextWatch</h3>
+                            <p class="tagline">Watch smarter. Track better.</p>
+                            <p>A personal TV/movie tracker app with AI-enhanced experience. Search for shows, view rich details, get plot explanations, ask in-context questions, and receive smart recommendations.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Detail View Modal -->
+        <div id="detail-modal" class="modal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-container">
+                <div class="modal-header">
+                    <button class="modal-close-button" id="close-detail-modal" aria-label="Close">✕</button>
+                </div>
+                <div class="modal-content" id="detail-content">
+                    <!-- Detail content will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Navigation -->
+        <nav class="tab-bar">
+            <button class="tab-item active" data-screen="home-screen" aria-label="Home">
+                <span class="tab-icon">🏠</span>
+                <span class="tab-label">Home</span>
+            </button>
+            <button class="tab-item" data-screen="watchlist-screen" aria-label="Watchlist">
+                <span class="tab-icon">⭐</span>
+                <span class="tab-label">Watchlist</span>
+            </button>
+            <button class="tab-item" data-screen="recommendations-screen" aria-label="Recommendations">
+                <span class="tab-icon">🤖</span>
+                <span class="tab-label">For You</span>
+            </button>
+            <button class="tab-item" data-screen="settings-screen" aria-label="Settings">
+                <span class="tab-icon">⚙️</span>
+                <span class="tab-label">Settings</span>
+            </button>
+        </nav>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/watchlist.js"></script>
+    <script src="js/recommendations.js"></script>
+    <script src="js/detail.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/sw-register.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
