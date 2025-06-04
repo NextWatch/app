@@ -10,6 +10,7 @@ const Search = {
   init: function() {
     this.searchInput = document.getElementById('search-input');
     this.searchResults = document.getElementById('search-results');
+    this.homeContainer = document.getElementById('home-container');
     
     this.bindEvents();
   },
@@ -24,7 +25,7 @@ const Search = {
         const query = this.searchInput.value.trim();
         if (query.length >= 3) {
           this.performSearch(query);
-        } else if (query.length === 0) {
+        } else {
           this.clearResults();
         }
       }, 500));
@@ -36,6 +37,11 @@ const Search = {
    * @param {string} query - Search query
    */
   async performSearch(query) {
+    // Hide home container when search is performed
+    if (this.homeContainer) {
+      this.homeContainer.style.display = 'none';
+    }
+
     // Show loading state
     this.searchResults.innerHTML = '';
     const loadingSpinner = UI.showLoading(this.searchResults);
@@ -90,5 +96,9 @@ const Search = {
         <p>Search for movies and TV shows</p>
       </div>
     `;
+    // Show home container when search is cleared
+    if (this.homeContainer) {
+      this.homeContainer.style.display = '';
+    }
   }
 };
